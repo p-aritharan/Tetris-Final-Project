@@ -11,6 +11,8 @@ Block5 = pygame.image.load("Tetris Final Project/Data/Tetris Blocks/StepBlock1.g
 Block6 = pygame.image.load("Tetris Final Project/Data/Tetris Blocks/StepBlock2.gif")
 Block7 = pygame.image.load("Tetris Final Project/Data/Tetris Blocks/T-Block.gif")
 
+def startgame():
+
 pygame.init()
 width, height = 500, 750
 screen = pygame.display.set_mode((width, height))
@@ -48,6 +50,8 @@ while running:
     for x in range(width//sky.get_width()+1):
         for y in range(height//sky.get_height()+1):
              pygame.display.update(screen.blit(sky,(x*100,y*100)))
+    
+    startgame()
 
 
     # if timer==0:
@@ -64,8 +68,5 @@ while running:
     #     badguy[0]-=7
 
 
-
-           
-
-#use blit to load image onto pygame screen
+#4/12 just got github as well as collaboration working
 
