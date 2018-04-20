@@ -1,32 +1,28 @@
-# took this code from https://stackoverflow.com/questions/44468625/how-to-make-a-button-in-pygame-display-and-update-images
-# using this code we can then add the following
-#1. startgame button which is activated with mouseclick
-#2. scroll to rotate blocks and left-click to move block down
 import sys
 import pygame
 
-# Three images.
-IMG1 = pygame.Surface((100, 100))
-IMG1.fill((240, 240, 240))
-pygame.draw.circle(IMG1, (0, 0, 0), (50, 50), 10)
-IMG2 = pygame.Surface((100, 100))
-IMG2.fill((240, 240, 240))
-pygame.draw.circle(IMG2, (0, 0, 0), (25, 25), 10)
-pygame.draw.circle(IMG2, (0, 0, 0), (75, 75), 10)
-IMG3 = pygame.Surface((100, 100))
-IMG3.fill((240, 240, 240))
-pygame.draw.circle(IMG3, (0, 0, 0), (20, 20), 10)
-pygame.draw.circle(IMG3, (0, 0, 0), (50, 50), 10)
-pygame.draw.circle(IMG3, (0, 0, 0), (80, 80), 10)
+# def rot_center(image, angle):
+#     """rotate an image while keeping its center and size"""
+#     orig_rect = image.get_rect()
+#     rot_image = pygame.transform.rotate(image, angle)
+#     rot_rect = orig_rect.copy()
+#     rot_rect.center = rot_image.get_rect().center
+#     rot_image = rot_image.subsurface(rot_rect).copy()
+#     return rot_image
+
+IMG1 = pygame.image.load("Block1.gif")
+# two rotations
+IMG100 = IMG1
+IMG200 = pygame.transform.rotate(IMG1, 90)
 # Put the images into a list or tuple.
-IMAGES = [IMG1, IMG2, IMG3]
+IMAGES = [IMG100, IMG200]
 
 def main():
-    screen = pygame.display.set_mode((640, 480))
+    screen = pygame.display.set_mode((500, 500))
     clock = pygame.time.Clock()
     bg_color = pygame.Color(30, 40, 60)
     # Use this rect for the collision detection and blitting.
-    img_rect = IMG1.get_rect(topleft=(200, 200))
+    img_rect = IMG1.get_rect(center=(200, 200))
     img_index = 0
     done = False
 
@@ -54,7 +50,3 @@ if __name__ == '__main__':
     main()
     pygame.quit()
     sys.exit()
-
-
-
-
