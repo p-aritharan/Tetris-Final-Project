@@ -38,3 +38,61 @@ startgame()
 #4/12 just got github as well as collaboration working
 
 
+
+# we are going to code the part of the game where we are moving the tetris pieces
+# this code was created in reference to the "Tetris (Python Reacipe)" presented on ActiveState Code
+left = 'left'
+right = 'right'
+turn = 'turn'
+down = 'down'
+quite = 'quit'
+
+shaft = None
+
+def turn_block(Blocks):
+    result = []
+    for x, y in block:
+        result.append((y, -x))
+    return result
+
+def get_command(next_fall_time):
+    while True: 
+        timeout = next_fall_time - time.time()
+        if timeout > 0.0:
+            (r, w, e) = select.select([ sys.stdin ], [], [], timeout)
+        else:
+            raise Timeout()
+        if sys.stdin not in r:
+            raise Timeout()
+        key = os.read(sys.stdin.fileno(), 1)
+        elif key == 'Left':
+            return left
+        elif key == 'Right':
+            return right
+        elif key == 'Up':
+            return turn
+        elif key == 'Down':
+            return down
+        elif key == 'q':
+            return quit
+    #now we will take care of random buttons being pressed
+        else: 
+            pass
+        
+def place_block(Blocks, coordinates, color):
+    global shaft, witdh, height
+    Block_x, Block_y = coordinates
+    for stone_x, stone_y in Block:
+        x = Block_x + stone_x
+        y = Block_y + stone_y
+        if (x < 0 or x >= width or
+            y < 0 or y >= height or
+            shaft[y][x] != empty):
+    for stone_x, stone_y in Block:
+        x = Block_x + stone_x
+        y = Block_y + stone_y
+        shaft[y][x] = color
+    return True
+
+
+
