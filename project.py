@@ -11,12 +11,50 @@ Block5 = pygame.image.load("StepBlock1.gif")
 Block6 = pygame.image.load("StepBlock2.gif")
 Block7 = pygame.image.load("T-Block.gif")
 sky = pygame.image.load("sky.gif")
+Block15 = pygame.transform.rotate(Block1, 90)
+LinearBlocks = [Block1, Block15]
 BLOCKS = [Block1, Block2, Block3, Block4, Block5, Block6, Block7]
 
 def startgame():
     pygame.init()
     width, height = 500, 500
-    screen = pygame.display.set_mode((width, height))
+    screen = pygame.display.set_mode((500, 500))
+    timer = pygame.time.Clock()
+    bg_color = pygame.Color(30, 40, 60)
+    img_rect = Block1.get_rect(center=(200, 200))
+    LinearBlocksx = 100
+    LinearBlocksy = 100
+    img_index = 0
+    done = False
+
+    while not done:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                done = True
+            if event.type == pygame.KEYUP:
+                if [pygame.K_UP]:
+                    img_index += 1
+                    # Modulo to cycle between 0, 1, 2.
+                    img_index %= len(LinearBlocks)
+            if event.type == pygame.K_LEFT:
+                LinearBlocksx +=20
+
+
+        screen.fill(bg_color)
+        # Use the index to get the current image and blit
+        # it at the img_rect (topleft) position.
+        # screen.blit(LinearBlocks[img_index], img_rect)
+        screen.blit(LinearBlocks[img_index],img_rect) 
+        screen.blit(LinearBlocksx, LinearBlocksy)
+
+        pygame.display.update()
+        timer.tick(30)
+
+
+if __name__ == 'startgame':
+    pygame.init()
+    startgame()
+    pygame.quit()
 #finally got the background to load
     timer = 0
 
@@ -28,11 +66,11 @@ def startgame():
 
         screen.fill(0)
 
-        for x in range(width//sky.get_width()+1):
-            for y in range(height//sky.get_height()+1):
-             pygame.display.update(screen.blit(sky,(x*100,y*100)))
-    
-    
+        # for x in range(width//sky.get_width()+1):
+        #     for y in range(height//sky.get_height()+1):
+        #      pygame.display.update(screen.blit(sky,(x*100,y*100)))
+
+
 startgame()
 
 #4/12 just got github as well as collaboration working
@@ -41,58 +79,61 @@ startgame()
 
 # we are going to code the part of the game where we are moving the tetris pieces
 # this code was created in reference to the "Tetris (Python Reacipe)" presented on ActiveState Code
-left = 'left'
-right = 'right'
-turn = 'turn'
-down = 'down'
-quite = 'quit'
+# left = 'left'
+# right = 'right'
+# turn = 'turn'
+# down = 'down'
+# quite = 'quit'
 
-shaft = None
+# shaft = None
 
-def turn_block(Blocks):
-    result = []
-    for x, y in block:
-        result.append((y, -x))
-    return result
+# def turn_block(Blocks):
+#     result = []
+#     for x, y in block:
+#         result.append((y, -x))
+#     return result
 
-def get_command(next_fall_time):
-    while True: 
-        timeout = next_fall_time - time.time()
-        if timeout > 0.0:
-            (r, w, e) = select.select([ sys.stdin ], [], [], timeout)
-        else:
-            raise Timeout()
-        if sys.stdin not in r:
-            raise Timeout()
-        key = os.read(sys.stdin.fileno(), 1)
-        elif key == 'Left':
-            return left
-        elif key == 'Right':
-            return right
-        elif key == 'Up':
-            return turn
-        elif key == 'Down':
-            return down
-        elif key == 'q':
-            return quit
-    #now we will take care of random buttons being pressed
-        else: 
-            pass
-        
-def place_block(Blocks, coordinates, color):
-    global shaft, witdh, height
-    Block_x, Block_y = coordinates
-    for stone_x, stone_y in Block:
-        x = Block_x + stone_x
-        y = Block_y + stone_y
-        if (x < 0 or x >= width or
-            y < 0 or y >= height or
-            shaft[y][x] != empty):
-    for stone_x, stone_y in Block:
-        x = Block_x + stone_x
-        y = Block_y + stone_y
-        shaft[y][x] = color
-    return True
+# def get_command(next_fall_time):
+#     while True:
+#         timeout = next_fall_time - time.time()
+#         if timeout > 0.0:
+#             (r, w, e) = select.select([ sys.stdin ], [], [], timeout)
+#         else:
+#             raise Timeout()
+#         if sys.stdin not in r:
+#             raise Timeout()
+#         key = os.read(sys.stdin.fileno(), 1)
+#         elif key == 'Left':
+#             return left
+#         elif key == 'Right':
+#             return right
+#         elif key == 'Up':
+#             return turn
+#         elif key == 'Down':
+#             return down
+#         elif key == 'q':
+#             return quit
+#     now we will take care of random buttons being pressed
+#         else:
+#             pass
+
+# def place_block(Blocks, coordinates, color):
+#     global shaft, witdh, height
+#     Block_x, Block_y = coordinates
+#     for stone_x, stone_y in Block:
+#         x = Block_x + stone_x
+#         y = Block_y + stone_y
+#         if (x < 0 or x >= width or
+#             y < 0 or y >= height or
+#             shaft[y][x] != empty):
+#     for stone_x, stone_y in Block:
+#         x = Block_x + stone_x
+#         y = Block_y + stone_y
+#         shaft[y][x] = color
+#     return True
 
 
+# 1.) work on moving block with left and right keys
+# 2.) work on adding gravity to get the block to move down over time
+# 3.) work on collisions using get rect.
 
