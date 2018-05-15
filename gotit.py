@@ -24,18 +24,18 @@ class key:
     up    = lambda key: [0 for event in main.event if event.type==pygame.KEYUP and event.key==eval('pygame.K_'+key)]
     down  = lambda key: [0 for event in main.event if event.type==pygame.KEYDOWN and event.key==eval('pygame.K_'+key)]
 
-class mouse:
-    state     = lambda button: pygame.mouse.get_pressed()[button-1]
-    up        = lambda button: [0 for event in main.event if event.type==pygame.MOUSEBUTTONUP and event.button==button]
-    down      = lambda button: [0 for event in main.event if event.type==pygame.MOUSEBUTTONDOWN and event.button==button]
-    motion    = lambda: [0 for event in main.event if event.type==pygame.MOUSEMOTION]
-    rel       = lambda: pygame.mouse.get_rel()
-    in_window = lambda: pygame.mouse.get_focused()
-    def pos(pos=None): 
-        return pygame.mouse.set_pos(pos) if pos else pygame.mouse.get_pos()
-    def visible(state=None):
-        if state!=None: pygame.mouse.set_visible(state)
-        elif pygame.mouse.set_visible(0): pygame.mouse.set_visible(1); return True
+# class mouse:
+#     state     = lambda button: pygame.mouse.get_pressed()[button-1]
+#     up        = lambda button: [0 for event in main.event if event.type==pygame.MOUSEBUTTONUP and event.button==button]
+#     down      = lambda button: [0 for event in main.event if event.type==pygame.MOUSEBUTTONDOWN and event.button==button]
+#     motion    = lambda: [0 for event in main.event if event.type==pygame.MOUSEMOTION]
+#     rel       = lambda: pygame.mouse.get_rel()
+#     in_window = lambda: pygame.mouse.get_focused()
+#     def pos(pos=None): 
+#         return pygame.mouse.set_pos(pos) if pos else pygame.mouse.get_pos()
+#     def visible(state=None):
+#         if state!=None: pygame.mouse.set_visible(state)
+#         elif pygame.mouse.set_visible(0): pygame.mouse.set_visible(1); return True
 
 def exitgame(): pygame.quit(); sys.exit()
 
@@ -59,7 +59,8 @@ class setup:
         if pygame.event.get(pygame.QUIT): exitgame()
         self.event = pygame.event.get()
 
-        if key.down("p") or mouse.down(2): self.paused = False if self.paused else True
+        # if key.down("p") or mouse.down(2): self.paused = False if self.paused else True
+        if key.down("p"): self.paused = False if self.paused else True
         if key.state("LALT") and key.down("RETURN"): self.toggle_fullscreen()
         if key.state("LALT") and key.down("F4"): exitgame()
 
