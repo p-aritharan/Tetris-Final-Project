@@ -60,19 +60,19 @@ class setup:
         self.event = pygame.event.get()
 
         # if key.down("p") or mouse.down(2): self.paused = False if self.paused else True
-        if key.down("p"): self.paused = False if self.paused else True
-        if key.state("LALT") and key.down("RETURN"): self.toggle_fullscreen()
-        if key.state("LALT") and key.down("F4"): exitgame()
+        # if key.down("p"): self.paused = False if self.paused else True
+        # if key.state("LALT") and key.down("RETURN"): self.toggle_fullscreen()
+        # if key.state("LALT") and key.down("F4"): exitgame()
 
-    def toggle_fullscreen(self):
-        if self.fullscreen: self.fullscreen, self.screen = False, pygame.display.set_mode(self.screen.get_size())
-        else: self.fullscreen, self.screen = True, pygame.display.set_mode(self.screen.get_size(), pygame.FULLSCREEN)
+    # def toggle_fullscreen(self):
+    #     if self.fullscreen: self.fullscreen, self.screen = False, pygame.display.set_mode(self.screen.get_size())
+    #     else: self.fullscreen, self.screen = True, pygame.display.set_mode(self.screen.get_size(), pygame.FULLSCREEN)
 
-    def resetmenus(self): self.current, self.paused, self.quit, self.options = 0, False, False, False
+    # def resetmenus(self): self.current, self.paused, self.quit, self.options = 0, False, False, False
 
-    def menu(self, selections):
-        texts = [fonts.default(i[2]).render(i[0], True, colors.grey, colors.black) for i in selections]
-        [self.screen.blit(texts[i], center((self.screen.get_rect().centerx,selections[i][1]),texts[i].get_size())) for i in range(len(selections))]
+    # def menu(self, selections):
+    #     texts = [fonts.default(i[2]).render(i[0], True, colors.grey, colors.black) for i in selections]
+    #     [self.screen.blit(texts[i], center((self.screen.get_rect().centerx,selections[i][1]),texts[i].get_size())) for i in range(len(selections))]
 
         text = fonts.default(selections[self.current][2]).render(selections[self.current][0], True, colors.yellow, colors.black)
         self.screen.blit(text,center((self.screen.get_rect().centerx,selections[self.current][1]),text.get_size()))
@@ -81,27 +81,27 @@ class setup:
         if key.down("s"): self.current = (self.current+1)%len(selections)
         if key.down("RETURN"): exec(selections[self.current][3])
         
-        for i in range(len(selections)):
-            if pygame.Rect((self.screen.get_rect().centerx-texts[i].get_rect().centerx,selections[i][1]-texts[i].get_rect().centery),texts[i].get_size()).collidepoint(mouse.pos()):
-                if mouse.motion(): self.current = i
-                if mouse.up(1): exec(selections[i][3])
+        # for i in range(len(selections)):
+        #     if pygame.Rect((self.screen.get_rect().centerx-texts[i].get_rect().centerx,selections[i][1]-texts[i].get_rect().centery),texts[i].get_size()).collidepoint(mouse.pos()):
+        #         if mouse.motion(): self.current = i
+        #         if mouse.up(1): exec(selections[i][3])
 
-    def pausemenu(self):
-        self.menu([ ["Resume Game", 180, 20, "self.paused, self.current = False, 0"],
-                    ["Options",     280, 20, "self.options, self.current = True, 0"],
-                    ["Quit Game",   380, 20, "self.quit, self.current = True, 0"], ])
+    # def pausemenu(self):
+    #     self.menu([ ["Resume Game", 180, 20, "self.paused, self.current = False, 0"],
+    #                 ["Options",     280, 20, "self.options, self.current = True, 0"],
+    #                 ["Quit Game",   380, 20, "self.quit, self.current = True, 0"], ])
 
-    def optionsmenu(self):
-        text = fonts.default(25).render("Options", True, colors.lime, colors.black)
-        self.screen.blit(text, center((self.screen.get_rect().centerx,120),text.get_size()))
-        self.menu([ ["Fullscreen: "+str(self.fullscreen), 220, 20, "self.toggle_fullscreen()"],
-                    ["Back",                              320, 20, "self.options, self.current = False, 0"], ])
+    # def optionsmenu(self):
+    #     text = fonts.default(25).render("Options", True, colors.lime, colors.black)
+    #     self.screen.blit(text, center((self.screen.get_rect().centerx,120),text.get_size()))
+    #     self.menu([ ["Fullscreen: "+str(self.fullscreen), 220, 20, "self.toggle_fullscreen()"],
+    #                 ["Back",                              320, 20, "self.options, self.current = False, 0"], ])
 
-    def quitmenu(self):
-        text = fonts.default(25).render("Are You Sure?", True, colors.lime, colors.black)
-        self.screen.blit(text, center((self.screen.get_rect().centerx,120),text.get_size()))
-        self.menu([ ["No",  220, 20, "self.quit, self.current = False, 0"],
-                    ["Yes", 320, 20, "exitgame()"], ])
+    # def quitmenu(self):
+    #     text = fonts.default(25).render("Are You Sure?", True, colors.lime, colors.black)
+    #     self.screen.blit(text, center((self.screen.get_rect().centerx,120),text.get_size()))
+    #     self.menu([ ["No",  220, 20, "self.quit, self.current = False, 0"],
+    #                 ["Yes", 320, 20, "exitgame()"], ])
 
 def center(a,b): return (a[0]-b[0]/2,a[1]-b[1]/2)
 
