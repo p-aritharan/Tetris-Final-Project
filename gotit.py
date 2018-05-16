@@ -1,5 +1,8 @@
 import pygame, sys, os, random
 
+#Adding colors to make the game look more lively and to differentiate between the different pieces available
+#Took the code for each color from the website below
+#https://www.rapidtables.com/web/color/RGB_Color.html
 class colors:
     black,blue,lime,aqua,red,magenta,yellow,white = [(r,g,b) for r in (0,255) for g in (0,255) for b in (0,255)]
     black,navy,green,teal,maroon,purple,olive,grey = [(r,g,b) for r in (0,128) for g in (0,128) for b in (0,128)]
@@ -11,47 +14,55 @@ class colors:
     lllblue = (180,197,223)
     lpurple = (204,0,255)
 
-class fonts:
-    default    = lambda size: pygame.font.Font(None,                                             size)
-    # ardestine  = lambda size: pygame.font.Font("C:\Windows\Fonts\ARDESTINE.TTF",                 size)
-    # arial      = lambda size: pygame.font.Font("C:\Windows\Fonts\Arial.TTF",                     size)
-    # coderscrux = lambda size: pygame.font.Font("C:\Windows\Fonts\Coder's Crux Regular.TTF",      size)
-    # mario      = lambda size: pygame.font.Font("C:\Windows\Fonts\Super Mario Bros. Regular.TTF", size)
-    # beast      = lambda size: pygame.font.Font("C:\Windows\Fonts\beast Machines.TTF",            size)
+#There are two ways to write functions, using def and lambda
+#Taken from #https://pythonconquerstheuniverse.wordpress.com/2011/08/29/lambda_tutorial/
+#Here’s an example. You can build a function in the normal way, using def, like this:
+# 1
+# def square_root(x): return math.sqrt(x)
+# or you can use lambda:
+# 1
+# square_root = lambda x: math.sqrt(x)
 
+#used pygame database for help with using text in the game
+#https://www.pygame.org/docs/ref/font.html
+class fonts:
+    default    = lambda size: pygame.font.Font(None, size)
 class key:
     state = lambda key: pygame.key.get_pressed()[eval('pygame.K_'+key)]
+    #Checks for keyup events
     up    = lambda key: [0 for event in main.event if event.type==pygame.KEYUP and event.key==eval('pygame.K_'+key)]
+    #Checks for keydown events
     down  = lambda key: [0 for event in main.event if event.type==pygame.KEYDOWN and event.key==eval('pygame.K_'+key)]
 
-# class mouse:
-#     state     = lambda button: pygame.mouse.get_pressed()[button-1]
-#     up        = lambda button: [0 for event in main.event if event.type==pygame.MOUSEBUTTONUP and event.button==button]
-#     down      = lambda button: [0 for event in main.event if event.type==pygame.MOUSEBUTTONDOWN and event.button==button]
-#     motion    = lambda: [0 for event in main.event if event.type==pygame.MOUSEMOTION]
-#     rel       = lambda: pygame.mouse.get_rel()
-#     in_window = lambda: pygame.mouse.get_focused()
-#     def pos(pos=None): 
-#         return pygame.mouse.set_pos(pos) if pos else pygame.mouse.get_pos()
-#     def visible(state=None):
-#         if state!=None: pygame.mouse.set_visible(state)
-#         elif pygame.mouse.set_visible(0): pygame.mouse.set_visible(1); return True
+class mouse:
+    state     = lambda button: pygame.mouse.get_pressed()[button-1]
+    up        = lambda button: [0 for event in main.event if event.type==pygame.MOUSEBUTTONUP and event.button==button]
+    down      = lambda button: [0 for event in main.event if event.type==pygame.MOUSEBUTTONDOWN and event.button==button]
+    motion    = lambda: [0 for event in main.event if event.type==pygame.MOUSEMOTION]
+    rel       = lambda: pygame.mouse.get_rel()
+    in_window = lambda: pygame.mouse.get_focused()
+    def pos(pos=None): 
+        return pygame.mouse.set_pos(pos) if pos else pygame.mouse.get_pos()
+    def visible(state=None):
+        if state!=None: pygame.mouse.set_visible(state)
+        elif pygame.mouse.set_visible(0): pygame.mouse.set_visible(1); return True
 
 def exitgame(): pygame.quit(); sys.exit()
 
+#Sets up the classes for the different pieces of the game to help start it.
 class setup:
     def __init__(self, size, title, fps):
         pygame.init()
-        os.environ["SDL_VIDEO_CENTERED"] = "1"
+        # os.environ["SDL_VIDEO_CENTERED"] = "1"
         pygame.display.set_caption(title)
         self.screen, self.fullscreen, self.clock, self.fps = pygame.display.set_mode(size), False, pygame.time.Clock(), fps
-        self.resetmenus()
+        # self.resetmenus()
 
     def events(self):
-        if not self.paused: self.resetmenus()
-        if self.options: self.optionsmenu()
-        elif self.quit: self.quitmenu()
-        elif self.paused: self.pausemenu()
+        # if not self.paused: self.resetmenus()
+        # if self.options: self.optionsmenu()
+        # elif self.quit: self.quitmenu()
+        # elif self.paused: self.pausemenu()
         
         pygame.display.flip()
         self.clock.tick(self.fps)
@@ -60,7 +71,6 @@ class setup:
         self.event = pygame.event.get()
 
         # if key.down("p") or mouse.down(2): self.paused = False if self.paused else True
-        # if key.down("p"): self.paused = False if self.paused else True
         # if key.state("LALT") and key.down("RETURN"): self.toggle_fullscreen()
         # if key.state("LALT") and key.down("F4"): exitgame()
 
@@ -74,17 +84,17 @@ class setup:
     #     texts = [fonts.default(i[2]).render(i[0], True, colors.grey, colors.black) for i in selections]
     #     [self.screen.blit(texts[i], center((self.screen.get_rect().centerx,selections[i][1]),texts[i].get_size())) for i in range(len(selections))]
 
-        text = fonts.default(selections[self.current][2]).render(selections[self.current][0], True, colors.yellow, colors.black)
-        self.screen.blit(text,center((self.screen.get_rect().centerx,selections[self.current][1]),text.get_size()))
+    #     text = fonts.default(selections[self.current][2]).render(selections[self.current][0], True, colors.yellow, colors.black)
+    #     self.screen.blit(text,center((self.screen.get_rect().centerx,selections[self.current][1]),text.get_size()))
         
-        if key.down("w"): self.current = (self.current-1)%len(selections)
-        if key.down("s"): self.current = (self.current+1)%len(selections)
-        if key.down("RETURN"): exec(selections[self.current][3])
+    #     if key.down("w"): self.current = (self.current-1)%len(selections)
+    #     if key.down("s"): self.current = (self.current+1)%len(selections)
+    #     if key.down("RETURN"): exec(selections[self.current][3])
         
-        # for i in range(len(selections)):
-        #     if pygame.Rect((self.screen.get_rect().centerx-texts[i].get_rect().centerx,selections[i][1]-texts[i].get_rect().centery),texts[i].get_size()).collidepoint(mouse.pos()):
-        #         if mouse.motion(): self.current = i
-        #         if mouse.up(1): exec(selections[i][3])
+    #     for i in range(len(selections)):
+    #         if pygame.Rect((self.screen.get_rect().centerx-texts[i].get_rect().centerx,selections[i][1]-texts[i].get_rect().centery),texts[i].get_size()).collidepoint(mouse.pos()):
+    #             if mouse.motion(): self.current = i
+    #             if mouse.up(1): exec(selections[i][3])
 
     # def pausemenu(self):
     #     self.menu([ ["Resume Game", 180, 20, "self.paused, self.current = False, 0"],
@@ -207,16 +217,16 @@ class grid:
         pygame.draw.rect(main.screen, colors.black, (x-self.ms[0],y-self.ms[1],w+self.ms[0]*2,h+self.ms[1]*2))
         pygame.draw.rect(main.screen, color, (x,y,w,h))
 
-    def restart_button(self):
-        text = fonts.default(25).render("Restart", True, colors.black)
-        (x,y),(w,h) = center((self.rect.centerx,self.rect.centery+100),text.get_size()),text.get_size()
-        rect = pygame.Rect(x-4,y-4,w+8,h+8)
-        collide = rect.collidepoint(mouse.pos())
-        pygame.draw.rect(main.screen, colors.black, rect)
-        pygame.draw.rect(main.screen, colors.lime if collide and self.active else colors.yellow, (x,y,w,h))
-        main.screen.blit(text,(x,y))
+    # def restart_button(self):
+    #     text = fonts.default(25).render("Restart", True, colors.black)
+    #     (x,y),(w,h) = center((self.rect.centerx,self.rect.centery+100),text.get_size()),text.get_size()
+    #     rect = pygame.Rect(x-4,y-4,w+8,h+8)
+    #     collide = rect.collidepoint(mouse.pos())
+    #     pygame.draw.rect(main.screen, colors.black, rect)
+    #     pygame.draw.rect(main.screen, colors.lime if collide and self.active else colors.yellow, (x,y,w,h))
+    #     main.screen.blit(text,(x,y))
 
-        if self.active and (key.down("RETURN") or (collide and mouse.up(1))): self.resetgame()
+        # if self.active and (key.down("RETURN") or (collide and mouse.up(1))): self.resetgame()
 
     def draw(self):
         self.active = True if type(self.active)==int else False
@@ -238,17 +248,17 @@ class grid:
         textb = fonts.default(16).render(str(self.score), True, colors.aqua, colors.black)
         main.screen.blit(textb,(self.rect.x-150+texta.get_width()//2-textb.get_width()//2,260+self.rect.y))
 
-        if self.game_over:
-            text = fonts.default(40).render("Game Over", True, colors.aqua, colors.black)
-            main.screen.blit(text,center((self.rect.centerx,self.rect.centery-100),text.get_size()))
+        # if self.game_over:
+        #     text = fonts.default(40).render("Game Over", True, colors.aqua, colors.black)
+        #     main.screen.blit(text,center((self.rect.centerx,self.rect.centery-100),text.get_size()))
 
-            text = fonts.default(25).render("Your Score", True, colors.aqua, colors.black)
-            main.screen.blit(text,center((self.rect.centerx,self.rect.centery-40),text.get_size()))
+        #     text = fonts.default(25).render("Your Score", True, colors.aqua, colors.black)
+        #     main.screen.blit(text,center((self.rect.centerx,self.rect.centery-40),text.get_size()))
 
-            text = fonts.default(25).render(str(self.score), True, colors.aqua, colors.black)
-            main.screen.blit(text,center((self.rect.centerx,self.rect.centery+10),text.get_size()))
+        #     text = fonts.default(25).render(str(self.score), True, colors.aqua, colors.black)
+        #     main.screen.blit(text,center((self.rect.centerx,self.rect.centery+10),text.get_size()))
 
-            self.restart_button()
+        #     self.restart_button()
 
 
 main = setup((600,600),"Tetris",60)
@@ -258,5 +268,6 @@ tetris.rect.center = main.screen.get_rect().center
 
 while True:
     main.events()
-    if not main.paused: tetris.run("w","s","a","d")
+    # if not main.paused: tetris.run("w","s","a","d")
+    tetris.run("w","s","a","d")
     tetris.draw()
