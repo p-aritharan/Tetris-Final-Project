@@ -34,18 +34,18 @@ class key:
     #Checks for keydown events
     down  = lambda key: [0 for event in main.event if event.type==pygame.KEYDOWN and event.key==eval('pygame.K_'+key)]
 
-class mouse:
-    state     = lambda button: pygame.mouse.get_pressed()[button-1]
-    up        = lambda button: [0 for event in main.event if event.type==pygame.MOUSEBUTTONUP and event.button==button]
-    down      = lambda button: [0 for event in main.event if event.type==pygame.MOUSEBUTTONDOWN and event.button==button]
-    motion    = lambda: [0 for event in main.event if event.type==pygame.MOUSEMOTION]
-    rel       = lambda: pygame.mouse.get_rel()
-    in_window = lambda: pygame.mouse.get_focused()
-    def pos(pos=None): 
-        return pygame.mouse.set_pos(pos) if pos else pygame.mouse.get_pos()
-    def visible(state=None):
-        if state!=None: pygame.mouse.set_visible(state)
-        elif pygame.mouse.set_visible(0): pygame.mouse.set_visible(1); return True
+# class mouse:
+#     state     = lambda button: pygame.mouse.get_pressed()[button-1]
+#     up        = lambda button: [0 for event in main.event if event.type==pygame.MOUSEBUTTONUP and event.button==button]
+#     down      = lambda button: [0 for event in main.event if event.type==pygame.MOUSEBUTTONDOWN and event.button==button]
+#     motion    = lambda: [0 for event in main.event if event.type==pygame.MOUSEMOTION]
+#     rel       = lambda: pygame.mouse.get_rel()
+#     in_window = lambda: pygame.mouse.get_focused()
+#     def pos(pos=None): 
+#         return pygame.mouse.set_pos(pos) if pos else pygame.mouse.get_pos()
+#     def visible(state=None):
+#         if state!=None: pygame.mouse.set_visible(state)
+#         elif pygame.mouse.set_visible(0): pygame.mouse.set_visible(1); return True
 
 def exitgame(): pygame.quit(); sys.exit()
 
@@ -156,7 +156,7 @@ class grid:
         if key.state("LEFT"): self.rect.x-=self.speed
         if key.state("RIGHT"): self.rect.x+=self.speed
 
-        [pygame.mixer.music.set_volume(1/i if i else 0) for i in range(10) if key.state(str(i))]
+        # [pygame.mixer.music.set_volume(1/i if i else 0) for i in range(10) if key.state(str(i))]
 
         if not self.game_over:
             self.fallspeed = 12 if key.state(down) else 3
