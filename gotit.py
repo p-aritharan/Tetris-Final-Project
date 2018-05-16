@@ -123,6 +123,8 @@ class grid:
         self.gs, self.ps, self.ms, self.speed = gs, ps, ms, speed
         self.rect = pygame.Rect(0, 0, ms[0]+gs[0]*(ps[0]+ms[0]), ms[1]+gs[1]*(ps[1]+ms[1]))
 
+#used this youtube video to learn how to code the shapes
+#https://www.youtube.com/watch?v=kF6ki_rR8Fw
         self.shapes = '02.45/1010/22._33/_33.22/464._4/5.5.52/_6._6.56'.split('/')
         self.shape_colors = [colors.red,colors.orange,colors.lime,colors.lblue,colors.yellow,colors.blue,colors.lpurple]
 
