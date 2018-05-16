@@ -25,6 +25,7 @@ class colors:
 
 #used pygame database for help with using text in the game
 #https://www.pygame.org/docs/ref/font.html
+# still trying to add text to the game
 class fonts:
     default    = lambda size: pygame.font.Font(None, size)
 class key:
@@ -239,14 +240,14 @@ class grid:
             tiles = self.convert(self.shapes[self.next[z]],0)
             [self.draw_tile(tiles[i],self.shape_colors[self.get_colors(self.next[z],i)],(self.rect.right+50,self.rect.y+120+(z*100))) for i in range(len(tiles))]
 
-        text = fonts.default(16).render("Lines: "+str(self.lines), True, colors.aqua, colors.black)
-        main.screen.blit(text,(self.rect.x-150,170+self.rect.y))
+        # text = fonts.default(16).render("Lines: "+str(self.lines), True, colors.aqua, colors.black)
+        # main.screen.blit(text,(self.rect.x-150,170+self.rect.y))
 
-        texta = fonts.default(16).render("Score:", True, colors.aqua, colors.black)
-        main.screen.blit(texta,(self.rect.x-150,220+self.rect.y))
+        # texta = fonts.default(16).render("Score:", True, colors.aqua, colors.black)
+        # main.screen.blit(texta,(self.rect.x-150,220+self.rect.y))
 
-        textb = fonts.default(16).render(str(self.score), True, colors.aqua, colors.black)
-        main.screen.blit(textb,(self.rect.x-150+texta.get_width()//2-textb.get_width()//2,260+self.rect.y))
+        # textb = fonts.default(16).render(str(self.score), True, colors.aqua, colors.black)
+        # main.screen.blit(textb,(self.rect.x-150+texta.get_width()//2-textb.get_width()//2,260+self.rect.y))
 
         # if self.game_over:
         #     text = fonts.default(40).render("Game Over", True, colors.aqua, colors.black)
