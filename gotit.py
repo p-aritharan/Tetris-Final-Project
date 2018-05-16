@@ -127,7 +127,8 @@ class grid:
 #used this youtube video to learn how to code the shapes
 #https://www.youtube.com/watch?v=kF6ki_rR8Fw
         self.shapes = '02.45/1010/22._33/_33.22/464._4/5.5.52/_6._6.56'.split('/')
-        self.shape_colors = [colors.red,colors.orange,colors.lime,colors.lblue,colors.yellow,colors.blue,colors.lpurple]
+        # self.shape_colors = [colors.red,colors.orange,colors.lime,colors.lblue,colors.yellow,colors.blue,colors.lpurple]
+        self.shape_colors = [colors.red,colors.red,colors.blue,colors.blue,colors.yellow,colors.lpurple,colors.lpurple]
 
         self.resetgame()
         self.movespeed = 8
