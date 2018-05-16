@@ -1,4 +1,5 @@
-import pygame, sys, os, random
+import pygame
+import random
 
 #Adding colors to make the game look more lively and to differentiate between the different pieces available
 #Took the code for each color from the website below
@@ -55,7 +56,7 @@ class setup:
     def __init__(self, size, title, fps):
         pygame.init()
         # os.environ["SDL_VIDEO_CENTERED"] = "1"
-        pygame.display.set_caption(title)
+        # pygame.display.set_caption(title)
         self.screen, self.fullscreen, self.clock, self.fps = pygame.display.set_mode(size), False, pygame.time.Clock(), fps
         # self.resetmenus()
 
@@ -187,7 +188,7 @@ class grid:
             if self.frame%(main.fps//self.fallspeed)==0:
                 if any([(i[0],i[1]+1) in self.tiles or i[1]>self.gs[1]-2 for i in self.body]):
                     if all([i>=0 for tile in self.body for i in tile]):
-                        self.score+=25
+                        # self.score+=25
                         self.tiles+=self.body
                         self.colors+=self.get_colors(self.current)
                             
@@ -204,7 +205,7 @@ class grid:
 
             self.frame = (self.frame+1)%main.fps
 
-        if key.state("BACKSPACE"): self.resetgame()
+        # if key.state("BACKSPACE"): self.resetgame()
 
     def draw_background(self,rect,color1,color2,color3):
         pygame.draw.rect(main.screen, color1, (rect.x-6,rect.y-6,rect.width+12,rect.height+12))
