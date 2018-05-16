@@ -1,5 +1,6 @@
 import pygame
 import random
+import sys
 
 #Adding colors to make the game look more lively and to differentiate between the different pieces available
 #Took the code for each color from the website below
