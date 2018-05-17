@@ -1,6 +1,5 @@
 import pygame
 import random
-import sys
 
 #Adding colors to make the game look more lively and to differentiate between the different pieces available
 #Took the code for each color from the website below
@@ -30,7 +29,7 @@ class key:
     down  = lambda key: [0 for event in main.event if event.type==pygame.KEYDOWN and event.key==eval('pygame.K_'+key)]
 
 
-def exitgame(): pygame.quit(); sys.exit()
+def exitgame(): pygame.quit()
 
 #Sets up the classes for the different pieces of the game to help start it.
 class setup:
