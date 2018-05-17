@@ -91,6 +91,8 @@ class grid:
         if key.state("RIGHT"): self.rect.x+=self.speed
 
         if not self.game_over:
+            #when the 's' key is pressed down, the block moves down at a speed of 12
+            #when the key is not pressed, the block moves down at a speed of 3 making it seem like it is falling down
             self.fallspeed = 12 if key.state(down) else 3
 
             self.body = self.convert(self.shapes[self.current],self.orient,self.pos)
