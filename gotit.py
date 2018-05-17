@@ -7,14 +7,6 @@ import sys
 #https://www.rapidtables.com/web/color/RGB_Color.html
 class colors:
     black,blue,lime,aqua,red,magenta,yellow,white = [(r,g,b) for r in (0,255) for g in (0,255) for b in (0,255)]
-    # black,navy,green,teal,maroon,purple,olive,grey = [(r,g,b) for r in (0,128) for g in (0,128) for b in (0,128)]
-    # pink    = (255,192,203)
-    # gold    = (255,215,0)
-    # orange  = (255,102,0)
-    # lblue   = (102,204,255)
-    # llblue  = (190,207,234)
-    # lllblue = (180,197,223)
-    # lpurple = (204,0,255)
 
 #There are two ways to write functions, using def and lambda
 #Taken from #https://pythonconquerstheuniverse.wordpress.com/2011/08/29/lambda_tutorial/
@@ -47,10 +39,6 @@ class setup:
         self.screen, self.fullscreen, self.clock, self.fps = pygame.display.set_mode(size), False, pygame.time.Clock(), fps
 
     def events(self):
-        # if not self.paused: self.resetmenus()
-        # if self.options: self.optionsmenu()
-        # elif self.quit: self.quitmenu()
-        # elif self.paused: self.pausemenu()
         
         pygame.display.flip()
         self.clock.tick(self.fps)
