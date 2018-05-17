@@ -144,6 +144,7 @@ class grid:
         for i in range(-1,rect.height,10): pygame.draw.line(main.screen, color2, (rect.right,rect.bottom-i),(rect.right-i if i<rect.width else rect.left,rect.bottom-(i-rect.width if i>rect.width else 0)),4)
         pygame.draw.rect(main.screen, color3, (rect.x-6,rect.y-6,rect.width+12,rect.height+12), 6)
 
+#draws the game blocks
     def draw_tile(self,tile,color,pos=None):
         if not pos: pos = self.rect.topleft
         x,y,w,h = pygame.Rect((pos[0]+tile[0]*(self.ps[0]+self.ms[0])+self.ms[0], pos[1]+tile[1]*(self.ps[1]+self.ms[1])+self.ms[1]), self.ps)
