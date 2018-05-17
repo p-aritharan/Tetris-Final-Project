@@ -91,12 +91,11 @@ class grid:
         if key.state("RIGHT"): self.rect.x+=self.speed
 
         if not self.game_over:
-            #when the 's' key is pressed down, the block moves down at a speed of 12
-            #when the key is not pressed, the block moves down at a speed of 3 making it seem like it is falling down
             self.fallspeed = 12 if key.state(down) else 3
 
             self.body = self.convert(self.shapes[self.current],self.orient,self.pos)
 
+  #the following code makes the block fall down immediately
             if key.down("SPACE"):
                 while not any([(i[0],i[1]+1) in self.tiles or i[1]>self.gs[1]-2 for i in self.body]):
                     self.pos[1]+=1
@@ -138,6 +137,7 @@ class grid:
             self.frame = (self.frame+1)%main.fps
 
 
+#this is the background for our game
     def draw_background(self,rect,color1,color2,color3):
         pygame.draw.rect(main.screen, color1, (rect.x-6,rect.y-6,rect.width+12,rect.height+12))
         for i in range(0,rect.width+10,10): pygame.draw.line(main.screen, color2, (rect.left+i,rect.top),(rect.left+(i-rect.height if i>rect.height else 0),rect.top+i if i<rect.height else rect.bottom),4)
