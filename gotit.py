@@ -7,14 +7,14 @@ import sys
 #https://www.rapidtables.com/web/color/RGB_Color.html
 class colors:
     black,blue,lime,aqua,red,magenta,yellow,white = [(r,g,b) for r in (0,255) for g in (0,255) for b in (0,255)]
-    black,navy,green,teal,maroon,purple,olive,grey = [(r,g,b) for r in (0,128) for g in (0,128) for b in (0,128)]
-    pink    = (255,192,203)
-    gold    = (255,215,0)
-    orange  = (255,102,0)
-    lblue   = (102,204,255)
-    llblue  = (190,207,234)
-    lllblue = (180,197,223)
-    lpurple = (204,0,255)
+    # black,navy,green,teal,maroon,purple,olive,grey = [(r,g,b) for r in (0,128) for g in (0,128) for b in (0,128)]
+    # pink    = (255,192,203)
+    # gold    = (255,215,0)
+    # orange  = (255,102,0)
+    # lblue   = (102,204,255)
+    # llblue  = (190,207,234)
+    # lllblue = (180,197,223)
+    # lpurple = (204,0,255)
 
 #There are two ways to write functions, using def and lambda
 #Taken from #https://pythonconquerstheuniverse.wordpress.com/2011/08/29/lambda_tutorial/
@@ -72,7 +72,7 @@ class grid:
 #https://www.youtube.com/watch?v=kF6ki_rR8Fw
         self.shapes = '02.45/1010/22._33/_33.22/464._4/5.5.52/_6._6.56'.split('/')
         # self.shape_colors = [colors.red,colors.orange,colors.lime,colors.lblue,colors.yellow,colors.blue,colors.lpurple]
-        self.shape_colors = [colors.red,colors.red,colors.blue,colors.blue,colors.yellow,colors.lpurple,colors.lpurple]
+        self.shape_colors = [colors.red,colors.red,colors.red,colors.red,colors.red,colors.red,colors.red]
 
         self.resetgame()
         self.movespeed = 8
@@ -164,7 +164,7 @@ class grid:
     def draw(self):
         self.active = True if type(self.active)==int else False
         
-        self.draw_background(self.rect,colors.llblue,colors.lllblue,colors.black)
+        self.draw_background(self.rect,colors.white,colors.white,colors.black)
         [self.draw_tile(i,self.shape_colors[self.get_colors(self.current,self.body.index(i))]) for i in self.body if i[0]>=0 and i[0]<self.gs[0] and i[1]>=0 and i[1]<self.gs[1]]
         [self.draw_tile(self.tiles[i],self.shape_colors[self.colors[i]]) for i in range(len(self.tiles))]
 
