@@ -37,18 +37,6 @@ class key:
     #Checks for keydown events
     down  = lambda key: [0 for event in main.event if event.type==pygame.KEYDOWN and event.key==eval('pygame.K_'+key)]
 
-# class mouse:
-#     state     = lambda button: pygame.mouse.get_pressed()[button-1]
-#     up        = lambda button: [0 for event in main.event if event.type==pygame.MOUSEBUTTONUP and event.button==button]
-#     down      = lambda button: [0 for event in main.event if event.type==pygame.MOUSEBUTTONDOWN and event.button==button]
-#     motion    = lambda: [0 for event in main.event if event.type==pygame.MOUSEMOTION]
-#     rel       = lambda: pygame.mouse.get_rel()
-#     in_window = lambda: pygame.mouse.get_focused()
-#     def pos(pos=None): 
-#         return pygame.mouse.set_pos(pos) if pos else pygame.mouse.get_pos()
-#     def visible(state=None):
-#         if state!=None: pygame.mouse.set_visible(state)
-#         elif pygame.mouse.set_visible(0): pygame.mouse.set_visible(1); return True
 
 def exitgame(): pygame.quit(); sys.exit()
 
@@ -56,10 +44,7 @@ def exitgame(): pygame.quit(); sys.exit()
 class setup:
     def __init__(self, size, title, fps):
         pygame.init()
-        # os.environ["SDL_VIDEO_CENTERED"] = "1"
-        # pygame.display.set_caption(title)
         self.screen, self.fullscreen, self.clock, self.fps = pygame.display.set_mode(size), False, pygame.time.Clock(), fps
-        # self.resetmenus()
 
     def events(self):
         # if not self.paused: self.resetmenus()
@@ -73,48 +58,7 @@ class setup:
         if pygame.event.get(pygame.QUIT): exitgame()
         self.event = pygame.event.get()
 
-        # if key.down("p") or mouse.down(2): self.paused = False if self.paused else True
-        # if key.state("LALT") and key.down("RETURN"): self.toggle_fullscreen()
-        # if key.state("LALT") and key.down("F4"): exitgame()
-
-    # def toggle_fullscreen(self):
-    #     if self.fullscreen: self.fullscreen, self.screen = False, pygame.display.set_mode(self.screen.get_size())
-    #     else: self.fullscreen, self.screen = True, pygame.display.set_mode(self.screen.get_size(), pygame.FULLSCREEN)
-
-    # def resetmenus(self): self.current, self.paused, self.quit, self.options = 0, False, False, False
-
-    # def menu(self, selections):
-    #     texts = [fonts.default(i[2]).render(i[0], True, colors.grey, colors.black) for i in selections]
-    #     [self.screen.blit(texts[i], center((self.screen.get_rect().centerx,selections[i][1]),texts[i].get_size())) for i in range(len(selections))]
-
-    #     text = fonts.default(selections[self.current][2]).render(selections[self.current][0], True, colors.yellow, colors.black)
-    #     self.screen.blit(text,center((self.screen.get_rect().centerx,selections[self.current][1]),text.get_size()))
-        
-    #     if key.down("w"): self.current = (self.current-1)%len(selections)
-    #     if key.down("s"): self.current = (self.current+1)%len(selections)
-    #     if key.down("RETURN"): exec(selections[self.current][3])
-        
-    #     for i in range(len(selections)):
-    #         if pygame.Rect((self.screen.get_rect().centerx-texts[i].get_rect().centerx,selections[i][1]-texts[i].get_rect().centery),texts[i].get_size()).collidepoint(mouse.pos()):
-    #             if mouse.motion(): self.current = i
-    #             if mouse.up(1): exec(selections[i][3])
-
-    # def pausemenu(self):
-    #     self.menu([ ["Resume Game", 180, 20, "self.paused, self.current = False, 0"],
-    #                 ["Options",     280, 20, "self.options, self.current = True, 0"],
-    #                 ["Quit Game",   380, 20, "self.quit, self.current = True, 0"], ])
-
-    # def optionsmenu(self):
-    #     text = fonts.default(25).render("Options", True, colors.lime, colors.black)
-    #     self.screen.blit(text, center((self.screen.get_rect().centerx,120),text.get_size()))
-    #     self.menu([ ["Fullscreen: "+str(self.fullscreen), 220, 20, "self.toggle_fullscreen()"],
-    #                 ["Back",                              320, 20, "self.options, self.current = False, 0"], ])
-
-    # def quitmenu(self):
-    #     text = fonts.default(25).render("Are You Sure?", True, colors.lime, colors.black)
-    #     self.screen.blit(text, center((self.screen.get_rect().centerx,120),text.get_size()))
-    #     self.menu([ ["No",  220, 20, "self.quit, self.current = False, 0"],
-    #                 ["Yes", 320, 20, "exitgame()"], ])
+      
 
 def center(a,b): return (a[0]-b[0]/2,a[1]-b[1]/2)
 
@@ -133,10 +77,6 @@ class grid:
         self.resetgame()
         self.movespeed = 8
         self.movedelay = 0
-        
-        #if random.randint(0,1): pygame.mixer.music.load('tetrisb.mid')
-        #else: pygame.mixer.music.load('tetrisc.mid')
-        #pygame.mixer.music.play(-1, 0.0)
 
     def resetgame(self):
         self.tiles, self.colors = [], []
@@ -161,8 +101,6 @@ class grid:
         if key.state("DOWN"): self.rect.y+=self.speed
         if key.state("LEFT"): self.rect.x-=self.speed
         if key.state("RIGHT"): self.rect.x+=self.speed
-
-        # [pygame.mixer.music.set_volume(1/i if i else 0) for i in range(10) if key.state(str(i))]
 
         if not self.game_over:
             self.fallspeed = 12 if key.state(down) else 3
@@ -209,7 +147,6 @@ class grid:
 
             self.frame = (self.frame+1)%main.fps
 
-        # if key.state("BACKSPACE"): self.resetgame()
 
     def draw_background(self,rect,color1,color2,color3):
         pygame.draw.rect(main.screen, color1, (rect.x-6,rect.y-6,rect.width+12,rect.height+12))
@@ -223,16 +160,6 @@ class grid:
         pygame.draw.rect(main.screen, colors.black, (x-self.ms[0],y-self.ms[1],w+self.ms[0]*2,h+self.ms[1]*2))
         pygame.draw.rect(main.screen, color, (x,y,w,h))
 
-    # def restart_button(self):
-    #     text = fonts.default(25).render("Restart", True, colors.black)
-    #     (x,y),(w,h) = center((self.rect.centerx,self.rect.centery+100),text.get_size()),text.get_size()
-    #     rect = pygame.Rect(x-4,y-4,w+8,h+8)
-    #     collide = rect.collidepoint(mouse.pos())
-    #     pygame.draw.rect(main.screen, colors.black, rect)
-    #     pygame.draw.rect(main.screen, colors.lime if collide and self.active else colors.yellow, (x,y,w,h))
-    #     main.screen.blit(text,(x,y))
-
-        # if self.active and (key.down("RETURN") or (collide and mouse.up(1))): self.resetgame()
 
     def draw(self):
         self.active = True if type(self.active)==int else False
@@ -245,27 +172,6 @@ class grid:
             tiles = self.convert(self.shapes[self.next[z]],0)
             [self.draw_tile(tiles[i],self.shape_colors[self.get_colors(self.next[z],i)],(self.rect.right+50,self.rect.y+120+(z*100))) for i in range(len(tiles))]
 
-        # text = fonts.default(16).render("Lines: "+str(self.lines), True, colors.aqua, colors.black)
-        # main.screen.blit(text,(self.rect.x-150,170+self.rect.y))
-
-        # texta = fonts.default(16).render("Score:", True, colors.aqua, colors.black)
-        # main.screen.blit(texta,(self.rect.x-150,220+self.rect.y))
-
-        # textb = fonts.default(16).render(str(self.score), True, colors.aqua, colors.black)
-        # main.screen.blit(textb,(self.rect.x-150+texta.get_width()//2-textb.get_width()//2,260+self.rect.y))
-
-        # if self.game_over:
-        #     text = fonts.default(40).render("Game Over", True, colors.aqua, colors.black)
-        #     main.screen.blit(text,center((self.rect.centerx,self.rect.centery-100),text.get_size()))
-
-        #     text = fonts.default(25).render("Your Score", True, colors.aqua, colors.black)
-        #     main.screen.blit(text,center((self.rect.centerx,self.rect.centery-40),text.get_size()))
-
-        #     text = fonts.default(25).render(str(self.score), True, colors.aqua, colors.black)
-        #     main.screen.blit(text,center((self.rect.centerx,self.rect.centery+10),text.get_size()))
-
-        #     self.restart_button()
-
 
 main = setup((600,600),"Tetris",60)
 
@@ -274,6 +180,5 @@ tetris.rect.center = main.screen.get_rect().center
 
 while True:
     main.events()
-    # if not main.paused: tetris.run("w","s","a","d")
     tetris.run("w","s","a","d")
     tetris.draw()
