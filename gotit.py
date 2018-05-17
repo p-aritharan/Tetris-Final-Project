@@ -139,6 +139,7 @@ class grid:
 #this is the background for our game
     def draw_background(self,rect,color1,color2,color3):
         pygame.draw.rect(main.screen, color1, (rect.x-6,rect.y-6,rect.width+12,rect.height+12))
+        # this draws the black box in which the blocks fall down
         for i in range(0,rect.width+10,10): pygame.draw.line(main.screen, color2, (rect.left+i,rect.top),(rect.left+(i-rect.height if i>rect.height else 0),rect.top+i if i<rect.height else rect.bottom),4)
         for i in range(-1,rect.height,10): pygame.draw.line(main.screen, color2, (rect.right,rect.bottom-i),(rect.right-i if i<rect.width else rect.left,rect.bottom-(i-rect.width if i>rect.width else 0)),4)
         pygame.draw.rect(main.screen, color3, (rect.x-6,rect.y-6,rect.width+12,rect.height+12), 6)
