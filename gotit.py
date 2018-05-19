@@ -105,10 +105,12 @@ class grid:
             left_key = key.state(left) and all([(i[0]-1,i[1]) not in self.tiles and i[0]>0 and i[0]<self.gs[0] for i in self.body])
             right_key = key.state(right) and all([(i[0]+1,i[1]) not in self.tiles and i[0]>-2 and i[0]<self.gs[0]-1 for i in self.body])
 
-            if self.movedelay: self.movedelay-=1
+            if self.movedelay: 
+                self.movedelay-=1
             if left_key ^ right_key:
                 l,r = key.down(left), key.down(right)
-                if l or r: self.movedelay = main.fps//3
+                if l or r: 
+                    self.movedelay = main.fps//3
                 self.pos[0] = self.pos[0] + (-1 if l else 1 if r else 0)
                 if not (self.frame%(main.fps//self.movespeed) or self.movedelay): self.pos[0] = self.pos[0] + (-1 if left_key else 1 if right_key else 0)
                 self.body = self.convert(self.shapes[self.current],self.orient,self.pos)
@@ -120,13 +122,11 @@ class grid:
             if self.frame%(main.fps//self.fallspeed)==0:
                 if any([(i[0],i[1]+1) in self.tiles or i[1]>self.gs[1]-2 for i in self.body]):
                     if all([i>=0 for tile in self.body for i in tile]):
-                        # self.score+=25
                         self.tiles+=self.body
                         self.colors+=self.get_colors(self.current)
                             
                         self.pos, self.orient, self.current, self.next = [self.gs[0]//2,0], 0, self.next[0], self.next[1:]+[random.randrange(len(self.shapes))]
                         lines = [y for y in range(self.gs[1]) if len([0 for x in range(self.gs[0]) if (x,y) in self.tiles])==self.gs[0]]
-                        self.lines, self.score = self.lines+len(lines), self.score+len(lines)*150
 
                         for y in lines:
                             for x in range(self.gs[0]): del self.colors[self.tiles.index((x,y))]; del self.tiles[self.tiles.index((x,y))]
