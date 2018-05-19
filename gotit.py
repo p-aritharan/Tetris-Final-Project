@@ -105,6 +105,7 @@ class grid:
                     self.pos[1]+=1
                     self.body = self.convert(self.shapes[self.current],self.orient,self.pos)
 
+            #defining the keys
             left_key = key.state(left) and all([(i[0]-1,i[1]) not in self.tiles and i[0]>0 and i[0]<self.gs[0] for i in self.body])
             right_key = key.state(right) and all([(i[0]+1,i[1]) not in self.tiles and i[0]>-2 and i[0]<self.gs[0]-1 for i in self.body])
 
@@ -164,8 +165,10 @@ class grid:
         
         self.draw_background(self.rect,colors.white,colors.white,colors.black)
         [self.draw_tile(i,self.shape_colors[self.get_colors(self.current,self.body.index(i))]) for i in self.body if i[0]>=0 and i[0]<self.gs[0] and i[1]>=0 and i[1]<self.gs[1]]
+        #len gets the length of a specific string and returns it
         [self.draw_tile(self.tiles[i],self.shape_colors[self.colors[i]]) for i in range(len(self.tiles))]
 
+        #Draws the next blocks that will fall down
         for z in range(len(self.next)):
             tiles = self.convert(self.shapes[self.next[z]],0)
             [self.draw_tile(tiles[i],self.shape_colors[self.get_colors(self.next[z],i)],(self.rect.right+50,self.rect.y+120+(z*100))) for i in range(len(tiles))]
