@@ -164,8 +164,10 @@ class grid:
         self.active = True if type(self.active)==int else False
         
         self.draw_background(self.rect,colors.white,colors.white,colors.black)
+        # allows you to see the block as it is falling down instead of having it invisible
         [self.draw_tile(i,self.shape_colors[self.get_colors(self.current,self.body.index(i))]) for i in self.body if i[0]>=0 and i[0]<self.gs[0] and i[1]>=0 and i[1]<self.gs[1]]
         #len gets the length of a specific string and returns it
+        #The code below makes sure that the block does not become invisible once it reaches the bottom
         [self.draw_tile(self.tiles[i],self.shape_colors[self.colors[i]]) for i in range(len(self.tiles))]
 
         #Draws the next blocks that will fall down
