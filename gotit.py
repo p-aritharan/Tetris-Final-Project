@@ -86,6 +86,7 @@ class grid:
 
     def run(self, up, down, left, right):
         self.active = 0
+        #sets the key states
         if key.state("UP"): self.rect.y-=self.speed
         if key.state("DOWN"): self.rect.y+=self.speed
         if key.state("LEFT"): self.rect.x-=self.speed
