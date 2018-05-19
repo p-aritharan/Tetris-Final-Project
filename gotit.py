@@ -156,7 +156,9 @@ class grid:
     def draw_tile(self,tile,color,pos=None):
         if not pos: pos = self.rect.topleft
         x,y,w,h = pygame.Rect((pos[0]+tile[0]*(self.ps[0]+self.ms[0])+self.ms[0], pos[1]+tile[1]*(self.ps[1]+self.ms[1])+self.ms[1]), self.ps)
+        # adds filling to the blocks giving it a black border
         pygame.draw.rect(main.screen, colors.black, (x-self.ms[0],y-self.ms[1],w+self.ms[0]*2,h+self.ms[1]*2))
+        # gives the blocks color
         pygame.draw.rect(main.screen, color, (x,y,w,h))
 
 
