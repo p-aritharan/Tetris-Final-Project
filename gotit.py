@@ -131,6 +131,8 @@ class grid:
                         self.pos, self.orient, self.current, self.next = [self.gs[0]//2,0], 0, self.next[0], self.next[1:]+[random.randrange(len(self.shapes))]
                         lines = [y for y in range(self.gs[1]) if len([0 for x in range(self.gs[0]) if (x,y) in self.tiles])==self.gs[0]]
 
+                        #This checks to see if there is a row of blocks that are connected horizontally. 
+                        #If the row is completely filled, then it deletes those tiles and drops everything that was in the rows above down 1
                         for y in lines:
                             for x in range(self.gs[0]): del self.colors[self.tiles.index((x,y))]; del self.tiles[self.tiles.index((x,y))]
                             self.tiles = [(i[0],i[1]+1) if i[1]<y else i for i in self.tiles]
@@ -144,9 +146,9 @@ class grid:
 #this is the background for our game
     def draw_background(self,rect,color1,color2,color3):
         pygame.draw.rect(main.screen, color1, (rect.x-6,rect.y-6,rect.width+12,rect.height+12))
-        # this draws the black box in which the blocks fall down
         for i in range(0,rect.width+10,10): pygame.draw.line(main.screen, color2, (rect.left+i,rect.top),(rect.left+(i-rect.height if i>rect.height else 0),rect.top+i if i<rect.height else rect.bottom),4)
         for i in range(-1,rect.height,10): pygame.draw.line(main.screen, color2, (rect.right,rect.bottom-i),(rect.right-i if i<rect.width else rect.left,rect.bottom-(i-rect.width if i>rect.width else 0)),4)
+        # Draws the black box in which the shapes are confined 
         pygame.draw.rect(main.screen, color3, (rect.x-6,rect.y-6,rect.width+12,rect.height+12), 6)
 
 #draws the game blocks
