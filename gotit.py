@@ -140,7 +140,9 @@ class grid:
 
                     else: self.game_over = True
                 else: self.pos[1]+=1
-
+            
+            #allows the player to take their time when playing the game
+            # this keeps the blocks from falling one after another which fills up the screen within seconds
             self.frame = (self.frame+1)%main.fps
 
 
