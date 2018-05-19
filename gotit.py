@@ -114,8 +114,10 @@ class grid:
             if self.movedelay: 
                 self.movedelay-=1
             if left_key ^ right_key:
+                #shorthand to notate the keydown events as one symbol in this case with the use of l and r
                 l,r = key.down(left), key.down(right)
-                if l or r: 
+                if l or r:
+                    #when the key is pressed to move the block left or right, the movement speed is slowed down
                     self.movedelay = main.fps//3
                 self.pos[0] = self.pos[0] + (-1 if l else 1 if r else 0)
                 if not (self.frame%(main.fps//self.movespeed) or self.movedelay): self.pos[0] = self.pos[0] + (-1 if left_key else 1 if right_key else 0)
