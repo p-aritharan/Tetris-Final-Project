@@ -4,6 +4,9 @@ import random
 #Adding colors to make the game look more lively and to differentiate between the different pieces available
 #Took the code for each color from the website below
 #https://www.rapidtables.com/web/color/RGB_Color.html
+#also looked at the pygame website for help with colors
+#https://www.pygame.org/docs/ref/color.html
+
 class colors:
     black,blue,lime,aqua,red,magenta,yellow,white = [(r,g,b) for r in (0,255) for g in (0,255) for b in (0,255)]
 
