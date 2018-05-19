@@ -63,7 +63,6 @@ class grid:
 #used this youtube video to learn how to code the shapes
 #https://www.youtube.com/watch?v=kF6ki_rR8Fw
         self.shapes = '02.45/1010/22._33/_33.22/464._4/5.5.52/_6._6.56'.split('/')
-        # self.shape_colors = [colors.red,colors.orange,colors.lime,colors.lblue,colors.yellow,colors.blue,colors.lpurple]
         self.shape_colors = [colors.red,colors.red,colors.red,colors.red,colors.red,colors.red,colors.red]
 
         self.resetgame()
@@ -188,6 +187,8 @@ main = setup((600,600),"Tetris",60)
 tetris = grid((10,20),(24,24),(4,4),10)
 tetris.rect.center = main.screen.get_rect().center
 
+#Creates the loop for the game to run
+#We do not have a way for the game to restart once the player loses 
 while True:
     main.events()
     tetris.run("w","s","a","d")
