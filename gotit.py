@@ -1,3 +1,4 @@
+#imports libraries 
 import pygame
 import random
 
@@ -7,6 +8,7 @@ import random
 #also looked at the pygame website for help with colors
 #https://www.pygame.org/docs/ref/color.html
 
+#colors for the game that will be used for background, game pieces, etc.
 class colors:
     black,blue,lime,aqua,red,magenta,yellow,white = [(r,g,b) for r in (0,255) for g in (0,255) for b in (0,255)]
 
@@ -54,6 +56,7 @@ class setup:
 
 def center(a,b): return (a[0]-b[0]/2,a[1]-b[1]/2)
 
+#establishes the class for the grid
 class grid:
     def __init__(self, gs, ps, ms, speed):
         self.active = False
@@ -68,7 +71,7 @@ class grid:
         self.resetgame()
         self.movespeed = 8
         self.movedelay = 0
-
+#resets game
     def resetgame(self):
         self.tiles, self.colors = [], []
         self.pos, self.orient = [self.gs[0]//2,0], 0
@@ -85,7 +88,7 @@ class grid:
         x,y = min(body,key=lambda i:i[0])[0], min(body,key=lambda i:i[1])[1]
         if i!=None: return int(self.shapes[current].split('.')[body[i][1]-y][body[i][0]-x])
         else: return [int(self.shapes[current].split('.')[row-y][col-x]) for col,row in body]
-
+ 
     def run(self, up, down, left, right):
         self.active = 0
         #sets the key states
