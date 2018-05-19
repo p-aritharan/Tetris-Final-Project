@@ -28,7 +28,7 @@ class key:
     #Checks for keydown events
     down  = lambda key: [0 for event in main.event if event.type==pygame.KEYDOWN and event.key==eval('pygame.K_'+key)]
 
-
+#exits the game
 def exitgame(): pygame.quit()
 
 #Sets up the classes for the different pieces of the game to help start it.
@@ -38,9 +38,11 @@ class setup:
         self.screen, self.fullscreen, self.clock, self.fps = pygame.display.set_mode(size), False, pygame.time.Clock(), fps
 
     def events(self):
-        
+        #pygame.display.flip updates the content of the entire display
+        #https://www.pygame.org/docs/ref/display.html
         pygame.display.flip()
         self.clock.tick(self.fps)
+        #sets the background fill to white
         self.screen.fill(colors.white)
         if pygame.event.get(pygame.QUIT): exitgame()
         self.event = pygame.event.get()
